@@ -1,3 +1,12 @@
+//import Arrow from '@domoritz/apache-arrow'
+//import Arrow from './node_modules/@domoritz/apache-arrow/Arrow.es2015.min.js'
+//fetch()
+//Arrow.Table()
+//const table = Arrow.makeTable({
+//  a: new Int8Array([1, 2, 3]),
+//})
+//console.log(table)
+
 var map = L.map('map').setView([0, 0], 0);
 
 // Empty Layer Group that will receive the clusters data on the fly.
@@ -30,28 +39,39 @@ markers.on('click', function(e) {
 });
 
 // Retrieve Points data.
-var placesUrl = './data/small.json';
-//var placesUrl = './data/big.json';
-// var placesUrl = 'https://cdn.rawgit.com/mapbox/supercluster/v4.0.1/test/fixtures/places.json';
+var placesUrl = './data/small.arrow';
 var index;
 var ready = false;
 
 function getPoints(x) {
   return new Promise(resolve => {
     jQuery.getJSON(x, (geojson) => resolve(geojson))
-    //d3.json(x).then((geojson) => resolve(geojson), (e) => console.log(e))
   }).then(
     (geojson) => geojson,
     (e) => console.log(e)
   )
 }
 
+function getTable(x) {
+  return Arrow.tableFromIPC(fetch(x))
+}
+
+
+function arrowTableToGeojson(table) {
+  var geojson = GeoJSON.parse(table.toArray(), {Point: ['y', 'x']})
+  return geojson
+}
+
+//var table;
+//var geojson;
+// declaring with var in the async function keeps variables local
 async function loadPoints() {
   try {
-    var geojson = await getPoints(placesUrl)
-    //var geojson = getPoints(placesUrl);
+    //var geojson = await getPoints(placesUrl)
+    var table = await getTable(placesUrl)
+    var geojson = arrowTableToGeojson(table)
     console.log('here I am')
-    index = supercluster({
+    index = new Supercluster({
       radius: 60,
       extent: 256,
       maxZoom: 18
@@ -64,45 +84,6 @@ async function loadPoints() {
 }
 
 loadPoints();
-
-//Promise.resolve(jQuery.getJSON(placesUrl, function(geojson) {
-//  // Initialize the supercluster index.
-//  index = supercluster({
-//    radius: 60,
-//    extent: 256,
-//    maxZoom: 18
-//  }).load(geojson.features); // Expects an array of Features.
-//  //ready = true;
-//  //update();
-//}
-////).done(
-////  function(){
-////    console.log("complete!")
-////    ready = true;
-////    update();
-////  }
-//).fail(function(geojson){
-//  console.log("error")
-//  // Initialize the supercluster index.
-//  index = supercluster({
-//    radius: 60,
-//    extent: 256,
-//    maxZoom: 18
-//  }).load(geojson.features); // Expects an array of Features.
-//}).always(function(){
-//  console.log("always.")
-//})).then(
-//  function(){
-//    console.log("complete!")
-//    ready = true;
-//    update();
-//  },
-//  function(){
-//    console.log("errored!")
-//    ready = true;
-//    update();
-//  }
-//)
 
 function createClusterIcon(feature, latlng) {
   if (!feature.properties.cluster) return L.marker(latlng);

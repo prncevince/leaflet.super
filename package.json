@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@domoritz/apache-arrow": "^7.0.0-canary.6619579f6",
     "supercluster": "^7.1.4"
   },
   "devDependencies": {},
