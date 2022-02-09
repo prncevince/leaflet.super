@@ -1,11 +1,6 @@
-//import Arrow from '@domoritz/apache-arrow'
-//import Arrow from './node_modules/@domoritz/apache-arrow/Arrow.es2015.min.js'
-//fetch()
-//Arrow.Table()
-//const table = Arrow.makeTable({
-//  a: new Int8Array([1, 2, 3]),
-//})
-//console.log(table)
+//import L from 'leaflet'
+//import Supercluster from 'supercluster'
+//import Arrow from 'apache-arrow'
 
 var map = L.map('map').setView([0, 0], 0);
 
@@ -86,6 +81,7 @@ async function loadPoints() {
 loadPoints();
 
 function createClusterIcon(feature, latlng) {
+  // ran after reached max zoom :) 
   if (!feature.properties.cluster) return L.marker(latlng);
 
   var count = feature.properties.point_count;
@@ -99,7 +95,8 @@ function createClusterIcon(feature, latlng) {
   });
 
   return L.marker(latlng, {
-    icon: icon
+    icon: icon,
+    title: count
   });
 }
 
