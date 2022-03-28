@@ -34,7 +34,7 @@ markers.on('click', function(e) {
 });
 
 // Retrieve Points data.
-var placesUrl = './data/small.arrow';
+var placesUrl = './data/big.arrow';
 var index;
 var ready = false;
 
@@ -81,7 +81,7 @@ async function loadPoints() {
 loadPoints();
 
 function createClusterIcon(feature, latlng) {
-  // ran after reached max zoom :) 
+  // ran after reached max zoom :)
   if (!feature.properties.cluster) return L.marker(latlng);
 
   var count = feature.properties.point_count;
