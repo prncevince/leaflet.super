@@ -1,0 +1,16 @@
+^renv$
+^renv\.lock$
+^supercluster\.Rproj$
+^\.Rproj\.user$
+^leaflet\.super\.Rproj$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^LICENSE\.md$
+# data dir not ready to be used yet
+^data$
+^notes$
+^node_modules$
+^.*\.swp$
+^\.DS_Store$
+^\.Rversion$

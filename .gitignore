@@ -21,3 +21,4 @@ CONTRIBUTING.html
 .DS_Store
 # npm
 node_modules
+docs

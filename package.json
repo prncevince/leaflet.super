@@ -1,17 +1,18 @@
 {
   "name": "leaflet.super",
-  "version": "0.0.1",
+  "version": "0.0.0.9000",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apache-arrow": "^7.0.0",
+    "express": "^4.17.3",
     "leaflet": "1.3.1",
     "supercluster": "^7.1.4"
   },
-  "devDependencies": {},
   "description": ""
 }

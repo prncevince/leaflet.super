@@ -33,8 +33,9 @@ markers.on('click', function(e) {
   }
 });
 
-// Retrieve Points data.
-var placesUrl = './data/big.arrow';
+// arrow ipc file format path
+var data = window.location.search.substring('1')
+var path = "https://raw.githubusercontent.com/prncevince/leaflet.super.data/main/" + data + ".arrow"
 var index;
 var ready = false;
 
@@ -47,7 +48,7 @@ function getPoints(x) {
   )
 }
 
-function getTable(x) {
+async function getTable(x) {
   return Arrow.tableFromIPC(fetch(x))
 }
 
@@ -57,13 +58,13 @@ function arrowTableToGeojson(table) {
   return geojson
 }
 
+// declaring with var in the async function keeps variables local
 //var table;
 //var geojson;
-// declaring with var in the async function keeps variables local
 async function loadPoints() {
   try {
-    //var geojson = await getPoints(placesUrl)
-    var table = await getTable(placesUrl)
+    //var geojson = await getPoints(path)
+    var table = await getTable(path)
     var geojson = arrowTableToGeojson(table)
     console.log('here I am')
     index = new Supercluster({

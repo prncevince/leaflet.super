@@ -1,0 +1,12 @@
+---
+title: "small.arrow"
+output: rmarkdown::html_document
+---
+
+# that was quick ... loaded [small.arrow](https://github.com/prncevince/leaflet.super.data/)
+
+```{r, echo=FALSE, out.width='120%', out.extra='id="map"'}
+data="small"
+knitr::include_url(paste0('../supercluster.html?', data), height = '600px')
+```
+
