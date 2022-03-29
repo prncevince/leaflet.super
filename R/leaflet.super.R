@@ -1,6 +1,6 @@
 #' Add a supercluster layer
 #'
-#' @param map leaflet object
+#' @param map a map widget object created from `leaflet::leaflet()`
 #' @param path relative path / absolute URL to an Arrow IPC stream file
 #' @examples
 #' \dontrun{
@@ -15,4 +15,4 @@
 #'   setView(lng = 0, lat = 0, zoom = 2)
 #' }
 #' @export
-addSupClust <- function(map =".", path=""){}
+addSupClust <- function(map, path=""){}

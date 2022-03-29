@@ -8,6 +8,6 @@ The original idea is to create a `addSupClust()` function for adding a [superclu
 
 Also interested in creating a `addGeoJSONvt()` function for adding a [geojson-vt](https://github.com/mapbox/geojson-vt) layer for GeoJSON Vector Tiles.
 
-The [Demos](./articles) are experiments. Some push the limits of your browser & will require you to continue waiting for responsiveness.
+The [Demos](./articles/#demos) are experiments. Some push the limits of your browser & will require you to continue waiting for responsiveness.
 
 More soon ...

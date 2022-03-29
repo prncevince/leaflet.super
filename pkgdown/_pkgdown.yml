@@ -1,0 +1,27 @@
+url: https://prncevince.github.io/leaflet.super/
+template:
+  bootstrap: 5
+navbar:
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: All Articles
+        href: articles/index.html
+      - text: '-------'
+      - text: Demos
+      - text: big.arrow
+        href: articles/demo/big/
+      - text: small.arrow
+        href: articles/demo/small/
+articles:
+- title: Demos
+  desc: Demos of {leaflet.super} in action
+  navbar: ~
+  contents:
+  - demo/big/index
+  - demo/small/index
+- title: Overview
+  navbar: ~
+  contents:
+  - overview

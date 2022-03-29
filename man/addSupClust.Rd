@@ -4,10 +4,10 @@
 \alias{addSupClust}
 \title{Add a supercluster layer}
 \usage{
-addSupClust(map = ".", path = "")
+addSupClust(map, path = "")
 }
 \arguments{
-\item{map}{leaflet object}
+\item{map}{a map widget object created from \code{leaflet::leaflet()}}
 
 \item{path}{relative path / absolute URL to an Arrow IPC stream file}
 }
