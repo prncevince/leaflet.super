@@ -7,5 +7,5 @@ output: rmarkdown::html_document
 
 ```{r, echo=FALSE, out.width='120%', out.extra='id="map"'}
 data="big"
-knitr::include_url(paste0('/supercluster.html?', data), height = '600px')
+knitr::include_url(paste0('../../../supercluster.html?', data), height = '600px')
 ```
