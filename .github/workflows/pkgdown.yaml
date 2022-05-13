@@ -22,7 +22,6 @@ jobs:
     # PR jobs run in their own branch & do not deploy anything - so we assume they can run concurrently
     concurrency:
       group: ghpages-${{ github.event_name != 'pull_request' || github.run_id }}
-      cancel-in-progress: true
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_CONFIG_REPOS_OVERRIDE: ${{ matrix.r-repo }}
@@ -38,7 +37,9 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev
-      - uses: prncevince/actions/setup-renv@v1.0.0
+      - uses: prncevince/actions/setup-renv@v1.1.0
+        with:
+          type: 'restore'
       - name: Build site
         shell: Rscript {0}
         run: pkgdown::build_site_github_pages(install=TRUE)

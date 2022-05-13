@@ -1,0 +1,44 @@
+# Workflow derived from # https://github.com/prncevince/actions/blob/main/.github/workflows/renv-r-pkg.yaml
+
+name: r-pkg-check
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+jobs:
+  setup-renv:
+    name: ${{ matrix.os }} (${{ matrix.r }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        r: ['release']
+        r-repo: ['https://packagemanager.rstudio.com/all/__linux__/focal/latest']
+    # Runs all jobs concurrently - also will cancel in progress jobs on new trigger events
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+      cancel-in-progress: true
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+      RENV_CONFIG_REPOS_OVERRIDE: ${{ matrix.r-repo }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          # change to false to forgo R install & use pre-installed R version in specified runner
+          install-r: true
+          r-version: ${{ matrix.r }}
+          http-user-agent: ${{ matrix.http-user-agent }}
+          # use RStudio's CRAN mirror with precompiled binaries
+          use-public-rspm: true
+      - uses: prncevince/actions/setup-renv@v1.1.0
+        with:
+          type: 'r-pkg'
+      - uses: r-lib/actions/check-r-package@v2
