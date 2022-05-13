@@ -1,5 +1,8 @@
 # leaflet.super
 
+[![pkgdown](https://github.com/prncevince/leaflet.super/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/prncevince/leaflet.super/actions/workflows/pkgdown.yaml)
+[![r-pkg-check](https://github.com/prncevince/leaflet.super/actions/workflows/r-pkg-check.yaml/badge.svg)](https://github.com/prncevince/leaflet.super/actions/workflows/r-pkg-check.yaml)
+
 In the works.
 
 A plugin for [{leaflet}](https://github.com/rstudio/leaflet) to add "super" features.
