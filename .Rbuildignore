@@ -15,3 +15,7 @@
 ^\.DS_Store$
 ^\.Rversion$
 ^\.github$
+^utils$
+^Makefile$
+^package.json$
+^package-lock.json$

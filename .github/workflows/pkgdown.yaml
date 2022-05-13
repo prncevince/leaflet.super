@@ -1,35 +1,51 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# Workflow derived from # https://github.com/prncevince/actions/blob/main/.github/workflows/pkgdown.yaml
+
+name: pkgdown
 on:
   push:
-    branches: [main, master]
+    branches: [main]
+  pull_request:
+    branches: [main]
   release:
     types: [published]
   workflow_dispatch:
-
-name: pkgdown
-
 jobs:
   pkgdown:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        r: ['release']
+        r-repo: ['https://packagemanager.rstudio.com/all/__linux__/focal/latest']
+    # Only runs PR jobs concurrently & uses same group as other ghpages jobs
+    # PR jobs run in their own branch & do not deploy anything - so we assume they can run concurrently
+    concurrency:
+      group: ghpages-${{ github.event_name != 'pull_request' || github.run_id }}
+      cancel-in-progress: true
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RENV_CONFIG_REPOS_OVERRIDE: ${{ matrix.r-repo }}
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: r-lib/actions/setup-pandoc@v1
-
-      - uses: r-lib/actions/setup-r@v1
+      - uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r@v2
         with:
+          r-version: ${{ matrix.r }}
           use-public-rspm: true
-
-      - uses: r-lib/actions/setup-r-dependencies@v1
-        with:
-          extra-packages: pkgdown
-          needs: website
-
-      - name: Deploy package
+      - name: Install system dependencies on Linux
+        if: runner.os == 'Linux'
         run: |
-          git config --local user.name "$GITHUB_ACTOR"
-          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+          sudo apt-get update -y
+          sudo apt-get install -y libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev
+      - uses: prncevince/actions/setup-renv@v1.0.0
+      - name: Build site
+        shell: Rscript {0}
+        run: pkgdown::build_site_github_pages()
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: docs
+          target-folder: pkgdown
