@@ -19,9 +19,9 @@ articles:
   desc: Demos of {leaflet.super} in action
   navbar: ~
   contents:
-  - demo/big/index
-  - demo/small/index
+  - articles/demo/big/index
+  - articles/demo/small/index
 - title: Overview
   navbar: ~
   contents:
-  - overview
+  - articles/overview

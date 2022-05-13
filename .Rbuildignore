@@ -17,5 +17,6 @@
 ^\.github$
 ^utils$
 ^Makefile$
-^package.json$
+^package\.json$
 ^package-lock.json$
+^vignettes/articles$
