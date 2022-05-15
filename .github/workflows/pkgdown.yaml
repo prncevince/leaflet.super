@@ -49,4 +49,4 @@ jobs:
         with:
           branch: gh-pages
           folder: docs
-          target-folder: pkgdown
+          target-folder: .
