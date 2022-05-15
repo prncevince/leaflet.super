@@ -29,7 +29,6 @@ jobs:
       RENV_CONFIG_REPOS_OVERRIDE: ${{ matrix.r-repo }}
     steps:
       - uses: actions/checkout@v3
-      - uses: r-lib/actions/setup-pandoc@v2
       - uses: r-lib/actions/setup-r@v2
         with:
           # change to false to forgo R install & use pre-installed R version in specified runner
